@@ -1,11 +1,15 @@
 package com.example.jp_s.simplecalendar;
 
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +17,29 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.pwittchen.swipe.library.rx2.Swipe;
-import com.github.pwittchen.swipe.library.rx2.SwipeListener;
-import java.util.Calendar;
+
 import java.util.Hashtable;
 import java.util.List;
 
-public class SimpleCalendar extends AppCompatActivity {
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link Calendar.OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link Calendar#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class Calendar extends Fragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
     private  LinearLayout[] weeks;
     private TextView[] days;
     private TextView[] weekDays;
@@ -33,85 +54,104 @@ public class SimpleCalendar extends AppCompatActivity {
     private Integer previousDaySelected;
     private Hashtable<String,List<String>> events;
 
+    private OnFragmentInteractionListener mListener;
+
+    public Calendar() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment Calendar.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static Calendar newInstance(String param1, String param2) {
+        Calendar fragment = new Calendar();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.main_activity);
-
-        /*events = new Hashtable<>();
-        setContentView(R.layout.activity_calendar);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+        events = new Hashtable<>();
+        getActivity().setContentView(R.layout.fragment_calendar);
         initializeCalendar();
         setWeeksDays();
         setTextViewConfig();
-        todayDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        updateDates(Calendar.getInstance());
+        todayDay = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
+        updateDates(java.util.Calendar.getInstance());
         debugCalendar();
         populateCalendar();
-
-        setSelectedDayChangedListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectDay(view);
-            }
-        });
-
-        swipe = new Swipe();
-        swipe.setListener(new SwipeListener() {
-            @Override public void onSwipingLeft(final MotionEvent event) {
-
-            }
-
-            @Override public boolean onSwipedLeft(final MotionEvent event) {
-                updateDates(swipeCalendarConditions("Left"));
-                populateCalendar();
-                debugCalendar();
-                populateCalendarEvents();
-                return true;
-            }
-
-            @Override public void onSwipingRight(final MotionEvent event) {
-            }
-
-            @Override public boolean onSwipedRight(final MotionEvent event) {
-                updateDates(swipeCalendarConditions("Right"));
-                populateCalendar();
-                populateCalendarEvents();
-                debugCalendar();
-                return true;
-            }
-
-            @Override
-            public void onSwipingUp(MotionEvent event) {
-
-            }
-
-            @Override
-            public boolean onSwipedUp(MotionEvent event) {
-                return false;
-            }
-
-            @Override
-            public void onSwipingDown(MotionEvent event) {
-
-            }
-
-            @Override
-            public boolean onSwipedDown(MotionEvent event) {
-                return false;
-            }
-        });*/
-
     }
 
-    public void setTextFontDays(String path){
-        Typeface textFont = Typeface.createFromAsset(getApplicationContext().getAssets(), path);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_calendar, container, false);
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
+
+
+
+    public void setTextFontDays(AssetManager assets , String path){
+        Typeface textFont = Typeface.createFromAsset(assets, path);
         for(TextView textView : days)
             textView.setTypeface(textFont);
     }
 
-    public void setTextFontWeekDays(String path){
-        Typeface textFont = Typeface.createFromAsset(getApplicationContext().getAssets(), path);
+    public void setTextFontWeekDays(AssetManager assets, String path){
+        Typeface textFont = Typeface.createFromAsset(assets, path);
         for(TextView textView : weekDays)
             textView.setTypeface(textFont);
     }
@@ -127,12 +167,12 @@ public class SimpleCalendar extends AppCompatActivity {
     }
 
     private void initializeCalendar(){
-        LinearLayout weekOneLayout = findViewById(R.id.calendar_week_1);
-        LinearLayout weekTwoLayout = findViewById(R.id.calendar_week_2);
-        LinearLayout weekThreeLayout = findViewById(R.id.calendar_week_3);
-        LinearLayout weekFourLayout = findViewById(R.id.calendar_week_4);
-        LinearLayout weekFiveLayout = findViewById(R.id.calendar_week_5);
-        LinearLayout weekSixLayout = findViewById(R.id.calendar_week_6);
+        LinearLayout weekOneLayout = getView().findViewById(R.id.calendar_week_1);
+        LinearLayout weekTwoLayout = getView().findViewById(R.id.calendar_week_2);
+        LinearLayout weekThreeLayout = getView().findViewById(R.id.calendar_week_3);
+        LinearLayout weekFourLayout = getView().findViewById(R.id.calendar_week_4);
+        LinearLayout weekFiveLayout = getView().findViewById(R.id.calendar_week_5);
+        LinearLayout weekSixLayout = getView().findViewById(R.id.calendar_week_6);
 
         weeks = new LinearLayout[6];
         weekDays = new TextView[7];
@@ -147,10 +187,10 @@ public class SimpleCalendar extends AppCompatActivity {
     }
 
     private void setWeeksDays(){
-        LinearLayout nwk = findViewById(R.id.calendar_week_days);
+        LinearLayout nwk = getView().findViewById(R.id.calendar_week_days);
         String[] nameWeekDays = {"SEG", "TER", "QUA", "QUI", "SEX", "SAB", "DOM"};
         for (int i = 0 ; i <= 6 ; ++i){
-            TextView weekDay = new TextView(getApplicationContext());
+            TextView weekDay = new TextView(getActivity().getApplicationContext());
             weekDay.setTextColor(Color.BLACK);
             weekDay.setTypeface(null, Typeface.BOLD);
             weekDay.setTextSize(12);
@@ -175,7 +215,7 @@ public class SimpleCalendar extends AppCompatActivity {
         int daysArrayCount = 0;
         for (int weekNumber = 0; weekNumber < 6; ++weekNumber) {
             for (int dayInWeek = 0; dayInWeek < 7; ++dayInWeek) {
-                TextView day = new TextView(getApplicationContext());
+                TextView day = new TextView(getActivity().getApplicationContext());
                 day.setTextColor(Color.BLACK);
                 day.setBackgroundColor(Color.TRANSPARENT);
                 day.setLayoutParams(textViewParameter());
@@ -190,14 +230,14 @@ public class SimpleCalendar extends AppCompatActivity {
         }
     }
 
-    private void updateDates(Calendar calendar){
-        currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-        currentMonth = calendar.get(Calendar.MONTH);
-        currentYear = calendar.get(Calendar.YEAR);
+    private void updateDates(java.util.Calendar calendar){
+        currentDay = calendar.get(java.util.Calendar.DAY_OF_MONTH);
+        currentMonth = calendar.get(java.util.Calendar.MONTH);
+        currentYear = calendar.get(java.util.Calendar.YEAR);
         setHeader(currentMonth);
-        daysOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        calendar.set(Calendar.DAY_OF_MONTH, 0);
-        currentDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        daysOfMonth = calendar.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
+        calendar.set(java.util.Calendar.DAY_OF_MONTH, 0);
+        currentDayOfWeek = calendar.get(java.util.Calendar.DAY_OF_WEEK) - 1;
     }
 
     private void populateCalendar(){
@@ -229,15 +269,15 @@ public class SimpleCalendar extends AppCompatActivity {
         Log.d("debugCalendar", "debugCalendar: daysOfMonth:"+ daysOfMonth);
     }
 
-    @Override
+    /*@Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         swipe.dispatchTouchEvent(event);
         return super.dispatchTouchEvent(event);
-    }
+    }*/
 
-    private Calendar swipeCalendarConditions(String direction){
+    private java.util.Calendar swipeCalendarConditions(String direction){
         Log.d("debug", "swipeCalendarConditions: " + direction);
-        Calendar calendar = Calendar.getInstance();
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
         if (direction.equals("Left")){
             if (currentMonth == 11){
                 calendar.set(currentYear + 1, 0,1);
@@ -258,14 +298,14 @@ public class SimpleCalendar extends AppCompatActivity {
     }
 
     private void setHeader(int position){
-        TextView textView = findViewById(R.id.calendar_header);
+        TextView textView = getView().findViewById(R.id.calendar_header);
         textView.setText(monthNames[position] + " " + currentYear);
     }
 
     private boolean markTodayRule(){
-        Calendar calendar = Calendar.getInstance();
-        if (currentMonth == calendar.get(Calendar.MONTH) &&
-                currentYear == calendar.get(Calendar.YEAR)) {
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        if (currentMonth == calendar.get(java.util.Calendar.MONTH) &&
+                currentYear == calendar.get(java.util.Calendar.YEAR)) {
             setTodayColor("#0082c8");
             return true;
         }
@@ -311,5 +351,4 @@ public class SimpleCalendar extends AppCompatActivity {
             }
         }
     }
-
 }
