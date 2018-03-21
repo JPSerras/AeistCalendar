@@ -2,6 +2,7 @@ package com.example.jp_s.simplecalendar;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +19,7 @@ import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.List;
 
-public class SimpleCalendar extends AppCompatActivity {
+public class SimpleCalendar extends FragmentActivity {
     private  LinearLayout[] weeks;
     private TextView[] days;
     private TextView[] weekDays;
