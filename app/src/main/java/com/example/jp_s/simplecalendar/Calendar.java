@@ -86,7 +86,7 @@ public class Calendar extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         events = new Hashtable<>();
-        getActivity().setContentView(R.layout.fragment_calendar);
+        //getActivity().setContentView(R.layout.fragment_calendar);
         initializeCalendar();
         setWeeksDays();
         setTextViewConfig();
