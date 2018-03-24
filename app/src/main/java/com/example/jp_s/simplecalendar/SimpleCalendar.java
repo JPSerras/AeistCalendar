@@ -54,7 +54,7 @@ public class SimpleCalendar{
         });
 
         SwipeLayout swipeLayout =  globalview.findViewById(R.id.swipe);
-        swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+        //swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, swipeListener("Left"));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, swipeListener("Right"));
     }
