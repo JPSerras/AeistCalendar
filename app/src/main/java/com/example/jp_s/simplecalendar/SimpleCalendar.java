@@ -13,8 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.github.pwittchen.swipe.library.rx2.Swipe;
-import com.github.pwittchen.swipe.library.rx2.SwipeListener;
+import com.daimajia.swipe.SwipeLayout;
 import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.List;
@@ -29,7 +28,6 @@ public class SimpleCalendar{
     private int daysOfMonth;
     private int currentDayOfWeek;
     private String[] monthNames= {"JANEIRO","FEVEREIRO","MARÇO","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO"};
-    private Swipe swipe;
     private int todayDay;
     private Integer previousDaySelected;
     private Hashtable<String,List<String>> events;
@@ -55,52 +53,18 @@ public class SimpleCalendar{
             }
         });
 
-        swipe = new Swipe();
-        swipe.setListener(new SwipeListener() {
-            @Override public void onSwipingLeft(final MotionEvent event) {
+        SwipeLayout swipeLayout =  globalview.findViewById(R.id.swipe);
+        swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, swipeListener("Left"));
+        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, swipeListener("Right"));
+    }
 
-            }
-
-            @Override public boolean onSwipedLeft(final MotionEvent event) {
-                updateDates(swipeCalendarConditions("Left"));
-                populateCalendar();
-                debugCalendar();
-                populateCalendarEvents();
-                return true;
-            }
-
-            @Override public void onSwipingRight(final MotionEvent event) {
-            }
-
-            @Override public boolean onSwipedRight(final MotionEvent event) {
-                updateDates(swipeCalendarConditions("Right"));
-                populateCalendar();
-                populateCalendarEvents();
-                debugCalendar();
-                return true;
-            }
-
-            @Override
-            public void onSwipingUp(MotionEvent event) {
-
-            }
-
-            @Override
-            public boolean onSwipedUp(MotionEvent event) {
-                return false;
-            }
-
-            @Override
-            public void onSwipingDown(MotionEvent event) {
-
-            }
-
-            @Override
-            public boolean onSwipedDown(MotionEvent event) {
-                return false;
-            }
-        });
-
+    private View swipeListener(String side){
+        updateDates(swipeCalendarConditions(side));
+        populateCalendar();
+        populateCalendarEvents();
+        debugCalendar();
+        return globalview;
     }
 
     public void setTextFontDays(String path){
@@ -227,13 +191,6 @@ public class SimpleCalendar{
         Log.d("debugCalendar", "debugCalendar: currentYear:"+ currentYear);
         Log.d("debugCalendar", "debugCalendar: daysOfMonth:"+ daysOfMonth);
     }
-
-
-    /*@Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-        swipe.dispatchTouchEvent(event);
-        return super.dispatchTouchEvent(event);
-    }*/
 
     private Calendar swipeCalendarConditions(String direction){
         Log.d("debug", "swipeCalendarConditions: " + direction);
