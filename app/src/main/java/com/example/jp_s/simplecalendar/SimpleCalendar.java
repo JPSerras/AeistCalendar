@@ -55,8 +55,8 @@ public class SimpleCalendar{
 
         SwipeLayout swipeLayout =  globalview.findViewById(R.id.swipeLayout);
         swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
-        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, swipeListener("Left"));
-        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, swipeListener("Right"));
+        /*swipeLayout.addDrag(SwipeLayout.DragEdge.Left, swipeListener("Left"));
+        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, swipeListener("Right"));*/
     }
 
     private View swipeListener(String side){
