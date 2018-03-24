@@ -1,76 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.daimajia.swipe.SwipeLayout
-    android:id="@+id/swipe"
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffffff">
 
-    <LinearLayout
+    <com.daimajia.swipe.SwipeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="left">
-
-        <TextView
-            android:id="@+id/calendar_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="#0082c8"
-            android:layout_marginBottom="3dp"
-            android:layout_marginTop="3dp"/>
-
+        android:id="@+id/swipeLayout">
         <LinearLayout
-            android:id="@+id/calendar_week_days"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="7" />
+            android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/calendar_week_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="7" />
+            <TextView
+                android:id="@+id/calendar_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#0082c8"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"/>
 
-        <LinearLayout
-            android:id="@+id/calendar_week_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="7" />
+            <LinearLayout
+                android:id="@+id/calendar_week_days"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="7" />
 
-        <LinearLayout
-            android:id="@+id/calendar_week_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="7" />
+            <LinearLayout
+                android:id="@+id/calendar_week_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="7" />
 
-        <LinearLayout
-            android:id="@+id/calendar_week_4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="7" />
+            <LinearLayout
+                android:id="@+id/calendar_week_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="7" />
 
-        <LinearLayout
-            android:id="@+id/calendar_week_5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="7" />
+            <LinearLayout
+                android:id="@+id/calendar_week_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="7" />
 
-        <LinearLayout
-            android:id="@+id/calendar_week_6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="7" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/calendar_week_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="7" />
 
-</com.daimajia.swipe.SwipeLayout>
+            <LinearLayout
+                android:id="@+id/calendar_week_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="7" />
+
+            <LinearLayout
+                android:id="@+id/calendar_week_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="7" />
+        </LinearLayout>
+    </com.daimajia.swipe.SwipeLayout>
+
+</android.support.constraint.ConstraintLayout>
