@@ -1,5 +1,6 @@
 package com.example.jp_s.simplecalendar;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -18,7 +19,7 @@ import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.List;
 
-public class SimpleCalendar extends FragmentActivity {
+public class SimpleCalendar{
     private  LinearLayout[] weeks;
     private TextView[] days;
     private TextView[] weekDays;
@@ -32,13 +33,13 @@ public class SimpleCalendar extends FragmentActivity {
     private int todayDay;
     private Integer previousDaySelected;
     private Hashtable<String,List<String>> events;
+    private Context context;
+    private View globalview;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        /*events = new Hashtable<>();
-        setContentView(R.layout.activity_calendar);
+    public SimpleCalendar(Context context, View globalview) {
+        this.context = context;
+        this.globalview = globalview;
+        events = new Hashtable<>();
         initializeCalendar();
         setWeeksDays();
         setTextViewConfig();
@@ -98,18 +99,18 @@ public class SimpleCalendar extends FragmentActivity {
             public boolean onSwipedDown(MotionEvent event) {
                 return false;
             }
-        });*/
+        });
 
     }
 
     public void setTextFontDays(String path){
-        Typeface textFont = Typeface.createFromAsset(getApplicationContext().getAssets(), path);
+        Typeface textFont = Typeface.createFromAsset(context.getAssets(), path);
         for(TextView textView : days)
             textView.setTypeface(textFont);
     }
 
     public void setTextFontWeekDays(String path){
-        Typeface textFont = Typeface.createFromAsset(getApplicationContext().getAssets(), path);
+        Typeface textFont = Typeface.createFromAsset(context.getAssets(), path);
         for(TextView textView : weekDays)
             textView.setTypeface(textFont);
     }
@@ -125,12 +126,12 @@ public class SimpleCalendar extends FragmentActivity {
     }
 
     private void initializeCalendar(){
-        LinearLayout weekOneLayout = findViewById(R.id.calendar_week_1);
-        LinearLayout weekTwoLayout = findViewById(R.id.calendar_week_2);
-        LinearLayout weekThreeLayout = findViewById(R.id.calendar_week_3);
-        LinearLayout weekFourLayout = findViewById(R.id.calendar_week_4);
-        LinearLayout weekFiveLayout = findViewById(R.id.calendar_week_5);
-        LinearLayout weekSixLayout = findViewById(R.id.calendar_week_6);
+        LinearLayout weekOneLayout = globalview.findViewById(R.id.calendar_week_1);
+        LinearLayout weekTwoLayout = globalview.findViewById(R.id.calendar_week_2);
+        LinearLayout weekThreeLayout = globalview.findViewById(R.id.calendar_week_3);
+        LinearLayout weekFourLayout = globalview.findViewById(R.id.calendar_week_4);
+        LinearLayout weekFiveLayout = globalview.findViewById(R.id.calendar_week_5);
+        LinearLayout weekSixLayout = globalview.findViewById(R.id.calendar_week_6);
 
         weeks = new LinearLayout[6];
         weekDays = new TextView[7];
@@ -145,10 +146,10 @@ public class SimpleCalendar extends FragmentActivity {
     }
 
     private void setWeeksDays(){
-        LinearLayout nwk = findViewById(R.id.calendar_week_days);
+        LinearLayout nwk = globalview.findViewById(R.id.calendar_week_days);
         String[] nameWeekDays = {"SEG", "TER", "QUA", "QUI", "SEX", "SAB", "DOM"};
         for (int i = 0 ; i <= 6 ; ++i){
-            TextView weekDay = new TextView(getApplicationContext());
+            TextView weekDay = new TextView(context);
             weekDay.setTextColor(Color.BLACK);
             weekDay.setTypeface(null, Typeface.BOLD);
             weekDay.setTextSize(12);
@@ -173,7 +174,7 @@ public class SimpleCalendar extends FragmentActivity {
         int daysArrayCount = 0;
         for (int weekNumber = 0; weekNumber < 6; ++weekNumber) {
             for (int dayInWeek = 0; dayInWeek < 7; ++dayInWeek) {
-                TextView day = new TextView(getApplicationContext());
+                TextView day = new TextView(context);
                 day.setTextColor(Color.BLACK);
                 day.setBackgroundColor(Color.TRANSPARENT);
                 day.setLayoutParams(textViewParameter());
@@ -227,11 +228,12 @@ public class SimpleCalendar extends FragmentActivity {
         Log.d("debugCalendar", "debugCalendar: daysOfMonth:"+ daysOfMonth);
     }
 
-    @Override
+
+    /*@Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         swipe.dispatchTouchEvent(event);
         return super.dispatchTouchEvent(event);
-    }
+    }*/
 
     private Calendar swipeCalendarConditions(String direction){
         Log.d("debug", "swipeCalendarConditions: " + direction);
@@ -256,7 +258,7 @@ public class SimpleCalendar extends FragmentActivity {
     }
 
     private void setHeader(int position){
-        TextView textView = findViewById(R.id.calendar_header);
+        TextView textView = globalview.findViewById(R.id.calendar_header);
         textView.setText(monthNames[position] + " " + currentYear);
     }
 
