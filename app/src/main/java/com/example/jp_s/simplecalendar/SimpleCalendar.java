@@ -34,6 +34,7 @@ public class SimpleCalendar{
     private Hashtable<String,List<String>> events;
     private Context context;
     private View globalview;
+    private float x1,x2;
 
     public SimpleCalendar(Context context, View globalview) {
         this.context = context;
@@ -54,19 +55,36 @@ public class SimpleCalendar{
             }
         });
 
-        SwipeLayout swipeLayout =  globalview.findViewById(R.id.swipeLayout);
-        swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
-        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, swipeListener("Left"));
-        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, swipeListener("Right"));
+        globalview.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+
+                    case MotionEvent.ACTION_DOWN:
+                        x1 = event.getX();
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        x2 = event.getX();
+                        if (x1 > x2) {
+                            swipeListener("Left");
+                        }
+                        if (x2 > x1) {
+                            swipeListener("Right");
+                        }
+                        return true;
+                }
+
+                return false;
+            }
+        });
     }
 
-    private View swipeListener(String side){
-        View view = LayoutInflater.from(context).inflate(R.layout.simple_calendar, null);
+    private void swipeListener(String side){
         updateDates(swipeCalendarConditions(side));
         populateCalendar();
         populateCalendarEvents();
         debugCalendar();
-        return view;
     }
 
     public void setTextFontDays(String path){
