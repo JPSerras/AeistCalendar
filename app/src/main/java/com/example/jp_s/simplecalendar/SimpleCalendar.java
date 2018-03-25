@@ -57,7 +57,11 @@ public class SimpleCalendar{
         });
 
         final LinearLayout parentLayout = this.globalview.findViewById(R.id.parentLayout);
-        parentLayout.setOnTouchListener(new View.OnTouchListener() {
+        parentLayout.setOnTouchListener(swipeListener());
+    }
+
+    private View.OnTouchListener swipeListener(){
+        return new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Log.d("swipe", "onTouch: calculating....." );
@@ -71,12 +75,10 @@ public class SimpleCalendar{
                         x2 = event.getX();
                         if (x1 > x2) {
                             Log.d("swipe", "onTouch: LEFT" );
-                            parentLayout.performClick();
                             swipeListener("Left");
                         }
                         if (x2 > x1) {
                             Log.d("swipe", "onTouch: RIGHT" );
-                            parentLayout.performClick();
                             swipeListener("Right");
                         }
                         return true;
@@ -84,7 +86,7 @@ public class SimpleCalendar{
 
                 return false;
             }
-        });
+        };
     }
 
     private void swipeListener(String side){
@@ -148,6 +150,7 @@ public class SimpleCalendar{
             weekDay.setGravity(Gravity.CENTER);
             weekDay.setLayoutParams(textViewParameter());
             weekDay.setText(nameWeekDays[i]);
+            weekDay.setOnTouchListener(swipeListener());
             weekDays[i] = weekDay;
             nwk.addView(weekDay);
         }
@@ -172,6 +175,7 @@ public class SimpleCalendar{
                 day.setGravity(Gravity.CENTER);
                 day.setTextSize(25);
                 day.setPadding(0,10,0,10);
+                day.setOnTouchListener(swipeListener());
                 days[daysArrayCount] = day;
                 weeks[weekNumber].addView(day);
 
