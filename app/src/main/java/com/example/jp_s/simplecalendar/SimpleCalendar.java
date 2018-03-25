@@ -58,8 +58,9 @@ public class SimpleCalendar{
         globalview.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
+                Log.d("swipe", "onTouch: calculating....." );
                 switch (event.getAction()) {
+
 
                     case MotionEvent.ACTION_DOWN:
                         x1 = event.getX();
@@ -67,9 +68,11 @@ public class SimpleCalendar{
                     case MotionEvent.ACTION_UP:
                         x2 = event.getX();
                         if (x1 > x2) {
+                            Log.d("swipe", "onTouch: LEFT" );
                             swipeListener("Left");
                         }
                         if (x2 > x1) {
+                            Log.d("swipe", "onTouch: RIGHT" );
                             swipeListener("Right");
                         }
                         return true;
