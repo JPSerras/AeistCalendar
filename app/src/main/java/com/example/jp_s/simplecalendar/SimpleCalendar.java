@@ -56,8 +56,7 @@ public class SimpleCalendar{
             }
         });
 
-        final LinearLayout parentLayout = this.globalview.findViewById(R.id.parentLayout);
-        parentLayout.setOnTouchListener(swipeListener());
+        globalview.setOnTouchListener(swipeListener());
     }
 
     private View.OnTouchListener swipeListener(){
@@ -96,14 +95,12 @@ public class SimpleCalendar{
         debugCalendar();
     }
 
-    public void setTextFontDays(String path){
+    public void setTextFont(String path){
         Typeface textFont = Typeface.createFromAsset(context.getAssets(), path);
+        TextView header = globalview.findViewById(R.id.calendar_header);
+        header.setTypeface(textFont, Typeface.BOLD);
         for(TextView textView : days)
             textView.setTypeface(textFont);
-    }
-
-    public void setTextFontWeekDays(String path){
-        Typeface textFont = Typeface.createFromAsset(context.getAssets(), path);
         for(TextView textView : weekDays)
             textView.setTypeface(textFont);
     }
@@ -150,7 +147,6 @@ public class SimpleCalendar{
             weekDay.setGravity(Gravity.CENTER);
             weekDay.setLayoutParams(textViewParameter());
             weekDay.setText(nameWeekDays[i]);
-            weekDay.setOnTouchListener(swipeListener());
             weekDays[i] = weekDay;
             nwk.addView(weekDay);
         }
@@ -175,7 +171,6 @@ public class SimpleCalendar{
                 day.setGravity(Gravity.CENTER);
                 day.setTextSize(25);
                 day.setPadding(0,10,0,10);
-                day.setOnTouchListener(swipeListener());
                 days[daysArrayCount] = day;
                 weeks[weekNumber].addView(day);
 
@@ -267,7 +262,7 @@ public class SimpleCalendar{
         if(view.getTag() != "") {
             if(previousDaySelected !=  null ){
                 days[previousDaySelected].setTextColor(Color.parseColor("#d9d9d9"));
-                days[previousDaySelected].setTypeface(null, Typeface.NORMAL);
+                days[previousDaySelected].setTypeface(days[previousDaySelected].getTypeface(), Typeface.NORMAL);
                 if (events.contains(previousDaySelected - (currentDayOfWeek - 1)))
                     days[previousDaySelected].setBackgroundResource(R.drawable.textlines);
                 else
@@ -275,7 +270,7 @@ public class SimpleCalendar{
             }
             int position = (int) view.getTag();
             days[position].setTextColor(Color.parseColor("#1a1a1a"));
-            days[position].setTypeface(null, Typeface.BOLD);
+            days[position].setTypeface(days[position].getTypeface(), Typeface.BOLD);
             days[position].setBackgroundResource(R.drawable.textlines_selected);
             previousDaySelected = position;
             if(!markTodayRule()){
