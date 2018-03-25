@@ -55,7 +55,8 @@ public class SimpleCalendar{
             }
         });
 
-        globalview.setOnTouchListener(new View.OnTouchListener() {
+        View parentLayout = globalview.findViewById(R.id.parentLayout);
+        parentLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Log.d("swipe", "onTouch: calculating....." );
