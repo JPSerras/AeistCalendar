@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,16 +56,17 @@ public class SimpleCalendar{
 
         SwipeLayout swipeLayout =  globalview.findViewById(R.id.swipeLayout);
         swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
-        /*swipeLayout.addDrag(SwipeLayout.DragEdge.Left, swipeListener("Left"));
-        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, swipeListener("Right"));*/
+        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, swipeListener("Left"));
+        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, swipeListener("Right"));
     }
 
     private View swipeListener(String side){
+        View view = LayoutInflater.from(context).inflate(R.layout.simple_calendar, null);
         updateDates(swipeCalendarConditions(side));
         populateCalendar();
         populateCalendarEvents();
         debugCalendar();
-        return globalview;
+        return view;
     }
 
     public void setTextFontDays(String path){
