@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -55,7 +56,7 @@ public class SimpleCalendar{
             }
         });
 
-        View parentLayout = globalview.findViewById(R.id.parentLayout);
+        final LinearLayout parentLayout = this.globalview.findViewById(R.id.parentLayout);
         parentLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -70,10 +71,12 @@ public class SimpleCalendar{
                         x2 = event.getX();
                         if (x1 > x2) {
                             Log.d("swipe", "onTouch: LEFT" );
+                            parentLayout.performClick();
                             swipeListener("Left");
                         }
                         if (x2 > x1) {
                             Log.d("swipe", "onTouch: RIGHT" );
+                            parentLayout.performClick();
                             swipeListener("Right");
                         }
                         return true;
