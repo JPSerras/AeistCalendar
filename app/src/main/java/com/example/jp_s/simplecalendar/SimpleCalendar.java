@@ -286,13 +286,8 @@ public class SimpleCalendar{
 
     private void populateCalendarEvents(){
         TextView view;
-        for (String key : events.keySet()) {
-            Log.d("MagicCalendar", "populateCalendarEvents: " + key + ": " + events.get(key));
-        }
-        Log.d("MagicCalendar", "populateCalendarEvents: " + currentMonth + ": " + currentYear);
-        Log.d("MagicCalendar", "populateCalendarEvents: " + events.containsKey(String.valueOf(currentMonth) + String.valueOf(currentYear)));
         if(events.containsKey(String.valueOf(currentMonth) + String.valueOf(currentYear))) {
-            List<String> days = events.get(currentMonth + currentYear);
+            List<String> days = events.get(String.valueOf(currentMonth) + String.valueOf(currentYear)));
             for (String day : days) {
                 view = this.days[Integer.parseInt(day) + (currentDayOfWeek - 1)];
                 view.setBackgroundResource(R.drawable.textlines);
