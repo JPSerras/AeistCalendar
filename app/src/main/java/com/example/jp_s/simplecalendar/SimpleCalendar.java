@@ -3,7 +3,9 @@ package com.example.jp_s.simplecalendar;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -21,6 +23,8 @@ import java.lang.reflect.Type;
 import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.function.Function;
 
 public class SimpleCalendar{
     private  LinearLayout[] weeks;
@@ -39,6 +43,7 @@ public class SimpleCalendar{
     private View globalview;
     private float x1,x2;
     private Typeface costumTypeface;
+    private Function<Calendar,Void> callable;
 
     public SimpleCalendar(Context context, View globalview) {
         this.context = context;
@@ -261,6 +266,7 @@ public class SimpleCalendar{
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void selectDay(View view){
         if(view.getTag() != "") {
             if(previousDaySelected !=  null ){
@@ -279,6 +285,11 @@ public class SimpleCalendar{
             if(!markTodayRule()){
                 days[position].setTextColor(Color.parseColor("#1a1a1a"));
             }
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(currentYear,currentMonth,position - (currentDayOfWeek - 1));
+            Log.d("MagicDate CalendarSide:", "selectDay: " + calendar);
+            callable.apply(calendar);
         }
     }
 
@@ -296,6 +307,10 @@ public class SimpleCalendar{
                 view.setBackgroundResource(R.drawable.textlines);
             }
         }
+    }
+
+    private void returnSelectedDate(Function<Calendar,Void> callable ){
+        this.callable = callable;
     }
 
 }
