@@ -262,8 +262,8 @@ public class SimpleCalendar{
         if(view.getTag() != "") {
             if(previousDaySelected !=  null ){
                 days[previousDaySelected].setTextColor(Color.parseColor("#d9d9d9"));
-                days[previousDaySelected].setTypeface(days[previousDaySelected].getTypeface(), Typeface.NORMAL);
-                if (events.contains(previousDaySelected - (currentDayOfWeek - 1)))
+                days[previousDaySelected].setTypeface(null, Typeface.NORMAL);
+                if (events.get(String.valueOf(currentMonth) + String.valueOf(currentYear)).contains(String.valueOf(previousDaySelected - (currentDayOfWeek - 1))))
                     days[previousDaySelected].setBackgroundResource(R.drawable.textlines);
                 else
                     days[previousDaySelected].setBackgroundResource(0);
@@ -281,7 +281,7 @@ public class SimpleCalendar{
 
     public void markEvents(Hashtable<String, List<String>> events){
         this.events = events;
-        populateCalendar();
+        populateCalendarEvents();
     }
 
     private void populateCalendarEvents(){
