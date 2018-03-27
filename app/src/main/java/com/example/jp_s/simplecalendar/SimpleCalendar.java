@@ -309,7 +309,7 @@ public class SimpleCalendar{
         }
     }
 
-    private void returnSelectedDate(Function<Calendar,Void> callable ){
+    public void returnSelectedDate(Function<Calendar,Void> callable ){
         this.callable = callable;
     }
 
