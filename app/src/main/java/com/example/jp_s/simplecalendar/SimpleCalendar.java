@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
+
+import java.lang.reflect.Type;
 import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.List;
@@ -36,6 +38,7 @@ public class SimpleCalendar{
     private Context context;
     private View globalview;
     private float x1,x2;
+    private Typeface costumTypeface;
 
     public SimpleCalendar(Context context, View globalview) {
         this.context = context;
@@ -96,13 +99,13 @@ public class SimpleCalendar{
     }
 
     public void setTextFont(String path){
-        Typeface textFont = Typeface.createFromAsset(context.getAssets(), path);
+        costumTypeface = Typeface.createFromAsset(context.getAssets(), path);
         TextView header = globalview.findViewById(R.id.calendar_header);
-        header.setTypeface(textFont, Typeface.BOLD);
+        header.setTypeface(costumTypeface, Typeface.BOLD);
         for(TextView textView : days)
-            textView.setTypeface(textFont);
+            textView.setTypeface(costumTypeface);
         for(TextView textView : weekDays)
-            textView.setTypeface(textFont);
+            textView.setTypeface(costumTypeface);
     }
 
     public void setTodayColor(String HexColor){
@@ -262,7 +265,7 @@ public class SimpleCalendar{
         if(view.getTag() != "") {
             if(previousDaySelected !=  null ){
                 days[previousDaySelected].setTextColor(Color.parseColor("#d9d9d9"));
-                days[previousDaySelected].setTypeface(null, Typeface.NORMAL);
+                days[previousDaySelected].setTypeface(costumTypeface, Typeface.NORMAL);
                 if (events.get(String.valueOf(currentMonth) + String.valueOf(currentYear)).contains(String.valueOf(previousDaySelected - (currentDayOfWeek - 1))))
                     days[previousDaySelected].setBackgroundResource(R.drawable.textlines);
                 else
@@ -270,7 +273,7 @@ public class SimpleCalendar{
             }
             int position = (int) view.getTag();
             days[position].setTextColor(Color.parseColor("#1a1a1a"));
-            days[position].setTypeface(days[position].getTypeface(), Typeface.BOLD);
+            days[position].setTypeface(costumTypeface, Typeface.BOLD);
             days[position].setBackgroundResource(R.drawable.textlines_selected);
             previousDaySelected = position;
             if(!markTodayRule()){
