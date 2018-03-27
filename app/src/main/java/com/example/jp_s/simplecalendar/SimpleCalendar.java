@@ -43,9 +43,10 @@ public class SimpleCalendar{
     private View globalview;
     private float x1,x2;
     private Typeface costumTypeface;
-    private Function<Calendar,Void> callable;
+    private CalendarCallback calendarCallback ;
 
-    public SimpleCalendar(Context context, View globalview) {
+    public SimpleCalendar(Context context, View globalview, CalendarCallback calendarCallback) {
+        this.calendarCallback = calendarCallback;
         this.context = context;
         this.globalview = globalview;
         events = new Hashtable<>();
@@ -58,6 +59,7 @@ public class SimpleCalendar{
         populateCalendar();
 
         setSelectedDayChangedListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
                 selectDay(view);
@@ -289,7 +291,7 @@ public class SimpleCalendar{
             Calendar calendar = Calendar.getInstance();
             calendar.set(currentYear,currentMonth,position - (currentDayOfWeek - 1));
             Log.d("MagicDate CalendarSide:", "selectDay: " + calendar);
-            callable.apply(calendar);
+            calendarCallback.onSelectedDayResponse(calendar);
         }
     }
 
@@ -308,9 +310,4 @@ public class SimpleCalendar{
             }
         }
     }
-
-    public void returnSelectedDate(Function<Calendar,Void> callable ){
-        this.callable = callable;
-    }
-
 }
