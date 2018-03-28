@@ -23,6 +23,7 @@ import java.lang.reflect.Type;
 import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.concurrent.Callable;
 import java.util.function.Function;
 
@@ -288,7 +289,7 @@ public class SimpleCalendar{
                 days[position].setTextColor(Color.parseColor("#1a1a1a"));
             }
 
-            Calendar calendar = Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
             calendar.set(currentYear,currentMonth,position - currentDayOfWeek);
             Log.d("MagicDate CalendarSide:", "selectDay: " + calendar);
             calendarCallback.onSelectedDayResponse(calendar);
