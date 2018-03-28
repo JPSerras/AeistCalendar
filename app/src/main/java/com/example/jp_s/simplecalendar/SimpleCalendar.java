@@ -289,7 +289,7 @@ public class SimpleCalendar{
             }
 
             Calendar calendar = Calendar.getInstance();
-            calendar.set(currentYear,currentMonth,position - (currentDayOfWeek - 1));
+            calendar.set(currentYear,currentMonth,position - currentDayOfWeek);
             Log.d("MagicDate CalendarSide:", "selectDay: " + calendar);
             calendarCallback.onSelectedDayResponse(calendar);
         }
@@ -302,7 +302,7 @@ public class SimpleCalendar{
 
     private void populateCalendarEvents(){
         TextView view;
-        if(events.containsKey(String.valueOf(currentMonth) + String.valueOf(currentYear))) {
+        if(events != null && events.containsKey(String.valueOf(currentMonth) + String.valueOf(currentYear))) {
             List<String> days = events.get(String.valueOf(currentMonth) + String.valueOf(currentYear));
             for (String day : days) {
                 view = this.days[Integer.parseInt(day) + (currentDayOfWeek - 1)];
