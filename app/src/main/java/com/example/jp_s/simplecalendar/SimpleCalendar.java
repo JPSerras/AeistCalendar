@@ -290,7 +290,7 @@ public class SimpleCalendar{
             }
 
             Calendar calendar = Calendar.getInstance();
-            calendar.set(currentYear,currentMonth,position - (currentDayOfWeek+3) );
+            calendar.set(currentYear,currentMonth,position - (currentDayOfWeek-3) );
             Log.d("MagicDate CalendarSide:", "selectDay: " + position);
             Log.d("MagicDate CalendarSide:", "selectDay: " + currentDayOfWeek);
             Log.d("MagicDate CalendarSide:", "selectDay: " + calendar);
