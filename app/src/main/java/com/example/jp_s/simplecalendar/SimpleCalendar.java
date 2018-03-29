@@ -303,11 +303,13 @@ public class SimpleCalendar{
 
     private void populateCalendarEvents(){
         TextView view;
-        if(events != null && events.containsKey(String.valueOf(currentMonth) + String.valueOf(currentYear))) {
-            List<String> days = events.get(String.valueOf(currentMonth) + String.valueOf(currentYear));
-            for (String day : days) {
-                view = this.days[Integer.parseInt(day) + (currentDayOfWeek - 1)];
-                view.setBackgroundResource(R.drawable.textlines);
+        if (events != null) {
+            if (events.containsKey(String.valueOf(currentMonth) + String.valueOf(currentYear))) {
+                List<String> days = events.get(String.valueOf(currentMonth) + String.valueOf(currentYear));
+                for (String day : days) {
+                    view = this.days[Integer.parseInt(day) + (currentDayOfWeek - 1)];
+                    view.setBackgroundResource(R.drawable.textlines);
+                }
             }
         }
     }
