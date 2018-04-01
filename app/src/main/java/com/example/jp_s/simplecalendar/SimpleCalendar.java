@@ -275,7 +275,8 @@ public class SimpleCalendar{
             if(previousDaySelected !=  null ){
                 days[previousDaySelected].setTextColor(Color.parseColor("#d9d9d9"));
                 days[previousDaySelected].setTypeface(costumTypeface, Typeface.NORMAL);
-                if (events != null && events.get(String.valueOf(currentMonth) + String.valueOf(currentYear)).contains(String.valueOf(previousDaySelected - (currentDayOfWeek - 1))))
+                if (events.get(String.valueOf(currentMonth) + String.valueOf(currentYear)) != null
+                        && events.get(String.valueOf(currentMonth) + String.valueOf(currentYear)).contains(String.valueOf(previousDaySelected - (currentDayOfWeek - 1))))
                     days[previousDaySelected].setBackgroundResource(R.drawable.textlines);
                 else
                     days[previousDaySelected].setBackgroundResource(0);
@@ -308,7 +309,7 @@ public class SimpleCalendar{
 
     private void populateCalendarEvents(){
         TextView view;
-        if (events != null && events.containsKey(String.valueOf(currentMonth) + String.valueOf(currentYear))) {
+        if (events.containsKey(String.valueOf(currentMonth) + String.valueOf(currentYear))) {
             List<String> days = events.get(String.valueOf(currentMonth) + String.valueOf(currentYear));
             for (String day : days) {
                 view = this.days[Integer.parseInt(day) + (currentDayOfWeek - 1)];
