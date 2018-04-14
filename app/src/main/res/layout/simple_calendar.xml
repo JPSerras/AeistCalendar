@@ -21,7 +21,7 @@
                     android:id="@+id/back_action"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:background="@drawable/back_color_arrow"/>
+                    android:background="@drawable/back_arrow"/>
                 <TextView
                     android:id="@+id/calendar_header"
                     android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
                     android:id="@+id/front_action"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:background="@drawable/front_color_arrow"/>
+                    android:background="@drawable/front_arrow"/>
             </LinearLayout>
 
             <LinearLayout
