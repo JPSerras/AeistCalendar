@@ -11,16 +11,32 @@
             android:orientation="vertical"
             android:id="@+id/parentLayout">
 
-            <TextView
-                android:id="@+id/calendar_header"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="#0082c8"
                 android:layout_marginBottom="3dp"
-                android:layout_marginTop="3dp"/>
+                android:layout_marginTop="3dp">
+                <ImageView
+                    android:id="@+id/back_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/back_arrow"/>
+                <TextView
+                    android:id="@+id/calendar_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textColor="#0082c8"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:id="@+id/front_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/front_arrow"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/calendar_week_days"

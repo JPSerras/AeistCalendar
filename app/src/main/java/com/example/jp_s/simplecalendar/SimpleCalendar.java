@@ -46,6 +46,7 @@ public class SimpleCalendar{
     private Typeface costumTypeface;
     private CalendarCallback calendarCallback ;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public SimpleCalendar(Context context, View globalview, CalendarCallback calendarCallback) {
         this.calendarCallback = calendarCallback;
         this.context = context;
@@ -67,7 +68,11 @@ public class SimpleCalendar{
             }
         });
 
-        globalview.setOnTouchListener(swipeListener());
+        globalview.findViewById(R.id.back_action).setOnClickListener(v-> swipeListener("Left"));
+        globalview.findViewById(R.id.back_action).setOnClickListener(v-> swipeListener("Right"));
+
+        //globalview.setOnTouchListener(swipeListener());
+        selectDay(days[todayDay+(currentDayOfWeek - 1)]);
     }
 
     private View.OnTouchListener swipeListener(){
@@ -294,10 +299,9 @@ public class SimpleCalendar{
             calendar.set(Calendar.YEAR, currentYear );
             calendar.set(Calendar.MONTH,currentMonth);
             calendar.set(Calendar.DAY_OF_MONTH,position - (currentDayOfWeek-1));
-            Log.d("MagicDate CalendarSide:", "selectDay: " + (position - (currentDayOfWeek-1)));
-            Log.d("MagicDate CalendarSide:", "selectDay: " + currentYear);
-            Log.d("MagicDate CalendarSide:", "selectDay: " + currentMonth);
-            Log.d("MagicDate CalendarSide:", "selectDay: " + calendar);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
             calendarCallback.onSelectedDayResponse(calendar);
         }
     }
@@ -316,5 +320,5 @@ public class SimpleCalendar{
                 view.setBackgroundResource(R.drawable.textlines);
                 }
             }
-        }
+    }
 }
