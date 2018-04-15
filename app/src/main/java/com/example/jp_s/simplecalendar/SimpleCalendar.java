@@ -68,8 +68,8 @@ public class SimpleCalendar{
             }
         });
 
-        globalview.findViewById(R.id.back_action).setOnClickListener(v-> swipeListener("Left"));
-        globalview.findViewById(R.id.front_action).setOnClickListener(v-> swipeListener("Right"));
+        globalview.findViewById(R.id.back_action).setOnClickListener(v-> swipeListener("Right"));
+        globalview.findViewById(R.id.front_action).setOnClickListener(v-> swipeListener("Left"));
 
         //globalview.setOnTouchListener(swipeListener());
         selectDay(days[todayDay+(currentDayOfWeek - 1)]);
