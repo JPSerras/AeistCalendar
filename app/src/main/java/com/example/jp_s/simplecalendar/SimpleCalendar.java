@@ -201,7 +201,6 @@ public class SimpleCalendar{
         currentDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void populateCalendar(){
         cleanCalendarDays();
         int dayNumber = 1;
@@ -211,9 +210,6 @@ public class SimpleCalendar{
             dayNumber++;
         }
         markTodayRule();
-        if(previousDaySelected == null){
-            selectDay(days[todayDay+(currentDayOfWeek - 1)]);
-        }
     }
 
     private void cleanCalendarDays(){
@@ -273,7 +269,7 @@ public class SimpleCalendar{
             return false;
         }
     }
-    
+
     public void selectDay(View view){
         if(view.getTag() != "") {
             if(previousDaySelected !=  null ){
@@ -304,8 +300,7 @@ public class SimpleCalendar{
             calendarCallback.onSelectedDayResponse(calendar);
         }
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    
     public void markEvents(Hashtable<String, List<String>> events){
         this.events = events;
         populateCalendarEvents();
