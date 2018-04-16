@@ -46,7 +46,6 @@ public class SimpleCalendar{
     private Typeface costumTypeface;
     private CalendarCallback calendarCallback ;
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public SimpleCalendar(Context context, View globalview, CalendarCallback calendarCallback) {
         this.calendarCallback = calendarCallback;
         this.context = context;
@@ -70,9 +69,6 @@ public class SimpleCalendar{
 
         globalview.findViewById(R.id.back_action).setOnClickListener(v-> swipeListener("Right"));
         globalview.findViewById(R.id.front_action).setOnClickListener(v-> swipeListener("Left"));
-
-        //globalview.setOnTouchListener(swipeListener());
-        selectDay(days[todayDay+(currentDayOfWeek - 1)]);
     }
 
     private View.OnTouchListener swipeListener(){
@@ -306,9 +302,13 @@ public class SimpleCalendar{
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void markEvents(Hashtable<String, List<String>> events){
         this.events = events;
         populateCalendarEvents();
+        if(previousDaySelected == null){
+            selectDay(days[todayDay+(currentDayOfWeek - 1)]);
+        }
     }
 
     private void populateCalendarEvents(){
