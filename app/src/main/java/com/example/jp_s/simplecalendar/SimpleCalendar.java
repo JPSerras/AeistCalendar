@@ -69,6 +69,8 @@ public class SimpleCalendar{
 
         globalview.findViewById(R.id.back_action).setOnClickListener(v-> swipeListener("Right"));
         globalview.findViewById(R.id.front_action).setOnClickListener(v-> swipeListener("Left"));
+
+        selectDay(days[todayDay+(currentDayOfWeek - 1)]);
     }
 
     private View.OnTouchListener swipeListener(){
@@ -300,7 +302,7 @@ public class SimpleCalendar{
             calendarCallback.onSelectedDayResponse(calendar);
         }
     }
-    
+
     public void markEvents(Hashtable<String, List<String>> events){
         this.events = events;
         populateCalendarEvents();
